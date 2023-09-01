@@ -13,6 +13,8 @@ var temp0 = document.querySelector('#temp0');
 var wind0 = document.querySelector('#wind0');
 var humidity0 = document.querySelector('#humidity0');
 var  icon = ''
+var searchHist = document.querySelector('#search-history')
+todayDate = dayjs().format('MM/DD/YYYY');
 
 // event listener to the submit of the form with the user input
 form.addEventListener('submit', function(event) {
@@ -22,11 +24,11 @@ form.addEventListener('submit', function(event) {
     locationApi(userCity);
 }) 
 
-// https://openweathermap.org/img/wn/10d@2x.png
-
 // function that uses the openweather geocoding to take the user input and then get the lat and long from it
 var locationApi = function(city) {
     var userlocal = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=4ff4b45b9265dee6811bebe35a9085ea';
+
+    $('#search-history').append('<button type="history" class="btn btn-primary w-100 mt-2 mb-2">' + city + '</button>')
     
     // pulling the searched city name and adding it to the dashboard
     var cityName = document.querySelector('#city');
@@ -37,7 +39,6 @@ var locationApi = function(city) {
     $('div#five-day-container').removeClass('d-none');
     
     // appending the date to the city name
-    todayDate = dayjs().format('MM/DD/YYYY');
     cityName.append(' ', todayDate);
 
     // fetching the lat and long from the user input
@@ -71,7 +72,7 @@ var weatherAPI = function (lat, long) {
         wind0.textContent = data.wind.speed
         humidity0.textContent = data.main.humidity
 
-        // trying to get weather icon to update with the emoji
+        // adds the weather emoji
         var emoji = data.weather[0].icon
         
         var city = document.querySelector('#wicon')
@@ -92,27 +93,60 @@ var weatherForcastApi = function(lat, long) {
 
     .then(function (data) {
 
-        // updating 1st 5 day forecast
+
+        // appending the date to the city name
+        // todayDate = dayjs().format('MM/DD/YYYY');
+        // cityName.append(' ', todayDate);
+        
+        // setting a var with the current date to manipulate for the future dates of the 5 day forecast
+        var currentDate = dayjs()
+        
+        // updating 1st 5 day forecast and weather icon
+        var dateOne = currentDate.add(1,'day');
+        $('h5#card-date1').text(dateOne.format('MM/DD/YYYY'));
+
+        $('img#icon1').attr('src', 'https://openweathermap.org/img/w/' + data.list[5].weather[0].icon + '.png');
+
         temp1.textContent = data.list[5].main.temp
         wind1.textContent = data.list[5].wind.speed
         humidity1.textContent = data.list[5].main.humidity
 
-        // updating 2nd 5 day forecast
+        // updating 2nd 5 day forecast and weather icon
+        var dateOne = currentDate.add(2,'day');
+        $('h5#card-date2').text(dateOne.format('MM/DD/YYYY'));
+
+        $('img#icon2').attr('src', 'https://openweathermap.org/img/w/' + data.list[13].weather[0].icon + '.png');
+
         temp2.textContent = data.list[13].main.temp
         wind2.textContent = data.list[13].wind.speed
         humidity2.textContent = data.list[13].main.humidity
        
-        // updating 3rd 5 day forecast
+        // updating 3rd 5 day forecast and weather icon
+        var dateOne = currentDate.add(3,'day');
+        $('h5#card-date3').text(dateOne.format('MM/DD/YYYY'));
+
+        $('img#icon3').attr('src', 'https://openweathermap.org/img/w/' + data.list[21].weather[0].icon + '.png');
+
         temp3.textContent = data.list[21].main.temp
         wind3.textContent = data.list[21].wind.speed
         humidity3.textContent = data.list[21].main.humidity
        
-        // updating 4th 5 day forecast
+        // updating 4th 5 day forecast and weather icon
+        var dateOne = currentDate.add(4,'day');
+        $('h5#card-date4').text(dateOne.format('MM/DD/YYYY'));
+
+        $('img#icon4').attr('src', 'https://openweathermap.org/img/w/' + data.list[29].weather[0].icon + '.png');
+
         temp4.textContent = data.list[29].main.temp
         wind4.textContent = data.list[29].wind.speed
         humidity4.textContent = data.list[29].main.humidity
        
-        // updating 4th 5 day forecast
+        // updating 4th 5 day forecast and weather icon
+        var dateOne = currentDate.add(5,'day');
+        $('h5#card-date5').text(dateOne.format('MM/DD/YYYY'));
+
+        $('img#icon5').attr('src', 'https://openweathermap.org/img/w/' + data.list[37].weather[0].icon + '.png');
+
         temp5.textContent = data.list[37].main.temp
         wind5.textContent = data.list[37].wind.speed
         humidity5.textContent = data.list[37].main.humidity
