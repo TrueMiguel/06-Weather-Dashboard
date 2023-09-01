@@ -9,6 +9,7 @@
     rel="stylesheet" 
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" 
     crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 </head>
 <body>
     <header>
@@ -40,13 +41,98 @@
             <div id="search-results" class="col-md-9">
                 <div>
                     <ul>
-                        <li id="city-date"><h2>Name of city and date</h2></li>
-                        <li id="temp">Temp: </li>
-                        <li id="wind">Wind: </li>
-                        <li id="humidity">Humidity</li>
+                        <li >
+                            <h2 id="city">Name of city and date</h2>
+                            <div><img class="weatherIcon d-none" id="wicon" src="" alt="Weather icon"></div>
+                        </li>
+                        <li id="temp">Temp: <div id="temp0"></div> </li>
+                        <li id="wind">Wind: <div id="wind0"></div></li>
+                        <li id="humidity">Humidity: <div id="humidity0"></div></li>
                     </ul>
                 </div>
-                <!-- multiple cards here -->
+                <div class="d-none" id="five-day-container">
+                    <h3><b>5-Day Forecast:</b></h3>
+                    <!-- multiple cards here -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-date1">Card title</h5>
+                                    <img  src="" class="weatherIcon d-none" id="icon1" alt="weather icon">
+                                    <div>
+                                        <ul class="p-0 m-0">
+                                            <li id="temp">Temp: <div id="temp1"></div> </li>
+                                            <li id="wind">Wind: <div id="wind1"></div></li>
+                                            <li id="humidity">Humidity: <div id="humidity1"></div></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-date2">Card title</h5>
+                                    <img src="" class="weatherIcon d-none" id="icon2" alt="weather icon">
+                                    <div>
+                                        <ul class="p-0 m-0">
+                                            <li id="temp">Temp: <div id="temp2"></div> </li>
+                                            <li id="wind">Wind: <div id="wind2"></div></li>
+                                            <li id="humidity">Humidity: <div id="humidity2"></div></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-date3">Card title</h5>
+                                    <img src="" class="weatherIcon d-none" id="icon3" alt="weather icon">
+                                    <div>
+                                        <ul class="p-0 m-0">
+                                            <li id="temp">Temp: <div id="temp3"></div> </li>
+                                            <li id="wind">Wind: <div id="wind3"></div></li>
+                                            <li id="humidity">Humidity: <div id="humidity3"></div></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-date4">Card title</h5>
+                                    <img src="" class="weatherIcon d-none" id="icon4" alt="weather icon">
+                                <div>
+                                        <ul class="p-0 m-0">
+                                            <li id="temp">Temp: <div id="temp4"></div> </li>
+                                            <li id="wind">Wind: <div id="wind4"></div></li>
+                                            <li id="humidity">Humidity: <div id="humidity4"></div></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-date5">Card title</h5>
+                                    <img src="" class="weatherIcon d-none" id="icon5" alt="weather icon">
+                                    <div>
+                                        <ul class="p-0 m-0">
+                                            <li id="temp">Temp: <div id="temp5"></div> </li>
+                                            <li id="wind">Wind: <div id="wind5"></div></li>
+                                            <li id="humidity">Humidity: <div id="humidity5"></div></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
     </div>
