@@ -14,22 +14,59 @@ var wind0 = document.querySelector('#wind0');
 var humidity0 = document.querySelector('#humidity0');
 var  icon = ''
 var searchHist = document.querySelector('#search-history')
+var searchElements = searchHist.children.length
 todayDate = dayjs().format('MM/DD/YYYY');
+const existingData = localStorage.getItem('')
+
+// for creating unique key for local storage
+var iteration = 0
 
 // event listener to the submit of the form with the user input
 form.addEventListener('submit', function(event) {
     event.preventDefault();
     var userCity = userCityInput.value;
 
-    locationApi(userCity);
+    // locationApi(userCity);
+    inputCheck(userCity)
+
+    
 }) 
+
+// checks to make sure that the user input returns a city. 
+var inputCheck = function(input) {
+    var userlocal = 'https://api.openweathermap.org/geo/1.0/direct?q=' + input + '&limit=1&appid=4ff4b45b9265dee6811bebe35a9085ea';
+
+    fetch(userlocal)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data)
+        if (data.length === 0) {
+            alert("Please enter a valid city name")
+        } else {
+            
+            // taking the city name and adding it to the search history bar on the right as a button element to retrieve it for later. 
+            $('#search-history').append('<button type="history" class="btn btn-primary w-100 mt-2 mb-2" id="searchResult' + iteration + '">' + input + '</button>')
+            
+            // Sets searched city to local storage with a unique key
+            localStorage.setItem('searchResult'+ iteration, input)
+            iteration++
+
+            locationApi(input)
+        }
+
+    })
+    // .then(response => {
+    // })
+}
 
 // function that uses the openweather geocoding to take the user input and then get the lat and long from it
 var locationApi = function(city) {
     var userlocal = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=4ff4b45b9265dee6811bebe35a9085ea';
+    console.log(userlocal)
 
-    $('#search-history').append('<button type="history" class="btn btn-primary w-100 mt-2 mb-2">' + city + '</button>')
-    
+
     // pulling the searched city name and adding it to the dashboard
     var cityName = document.querySelector('#city');
     cityName.textContent = city;
@@ -47,6 +84,7 @@ var locationApi = function(city) {
             return response.json();
         })
         .then(function (data) {
+            console.log(data)
             var lat = data[0].lat;
             var long = data[0].lon;
 
@@ -66,8 +104,7 @@ var weatherAPI = function (lat, long) {
         })
         .then(function (data) {
 
-        console.log(data)
-
+        // updating the today weather info
         temp0.textContent = data.main.temp
         wind0.textContent = data.wind.speed
         humidity0.textContent = data.main.humidity
@@ -77,7 +114,6 @@ var weatherAPI = function (lat, long) {
         
         var city = document.querySelector('#wicon')
         icon = 'https://openweathermap.org/img/w/' + emoji + '.png'
-        console.log(icon)
         
         city.setAttribute('src', icon)
     });
@@ -153,5 +189,14 @@ var weatherForcastApi = function(lat, long) {
     })
 }
 
+// event listener to the submit of the form with the user input
+searchHist.addEventListener('click', function(event) {
+    event.preventDefault();
 
-// weatherAPI()
+    var clickedElement = event.target;
+    var elementId = clickedElement.id;
+
+    var previousSearch = localStorage.getItem(elementId)
+
+    locationApi(previousSearch);
+}) 
